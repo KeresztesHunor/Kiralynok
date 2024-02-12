@@ -2,8 +2,8 @@ package modell;
 
 public class Tabla
 {
-    private char[][] t;
-    private char uresCella;
+    private final char[][] t;
+    private final char uresCella;
     
     public Tabla(char uresCella)
     {
@@ -20,12 +20,25 @@ public class Tabla
     
     public int uresOszlopokSzama()
     {
-        return 0;
+        return uresSorokVagyOszlopokSzama(x -> uresOszlop(x));
     }
     
     public int uresSorokSzama()
     {
-        return 0;
+        return uresSorokVagyOszlopokSzama(y -> uresSor(y));
+    }
+    
+    private int uresSorokVagyOszlopokSzama(OszlopVagySor oszlopVagySor)
+    {
+        int db = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            if (oszlopVagySor.ures(i))
+            {
+                db++;
+            }
+        }
+        return db;
     }
     
     public void elhelyez(int n)
@@ -55,21 +68,21 @@ public class Tabla
     
     public boolean uresOszlop(int oszlopIndex)
     {
-        return ures(y -> t[oszlopIndex][y]);
+        return uresCella(y -> t[oszlopIndex][y]);
     }
     
     public boolean uresSor(int sorIndex)
     {
-        return ures(x -> t[x][sorIndex]);
+        return uresCella(x -> t[x][sorIndex]);
     }
     
-    private boolean ures(Cella cella)
+    private boolean uresCella(Cella cella)
     {
         int i = 0;
-        while (i < t.length && cella.cellaErtek(i) == uresCella)
+        while (i < 8 && cella.cellaErtek(i) == uresCella)
         {
             i++;
         }
-        return i >= t.length;
+        return i >= 8;
     }
 }
