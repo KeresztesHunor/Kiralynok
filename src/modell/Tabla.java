@@ -9,13 +9,18 @@ public class Tabla
     {
         this.uresCella = uresCella;
         t = new char[8][8];
-        for (int x = 0; x < t.length; x++)
+        for (int y = 0; y < t.length; y++)
         {
-            for (int y = 0; y < t[x].length; y++)
+            for (int x = 0; x < t[y].length; x++)
             {
                 t[x][y] = uresCella;
             }
         }
+    }
+    
+    public char[][] getT()
+    {
+        return t;
     }
     
     public int uresOszlopokSzama()
@@ -68,12 +73,12 @@ public class Tabla
     
     public boolean uresOszlop(int oszlopIndex)
     {
-        return uresCella(y -> t[oszlopIndex][y]);
+        return uresCella(x -> t[x][oszlopIndex]);
     }
     
     public boolean uresSor(int sorIndex)
     {
-        return uresCella(x -> t[x][sorIndex]);
+        return uresCella(y -> t[sorIndex][y]);
     }
     
     private boolean uresCella(Cella cella)
