@@ -10,5 +10,6 @@ public class Kiralynok
         Tabla tabla = new Tabla('#');
         tabla.elhelyez(8);
         new ViewGUI().megjelenit(tabla.getT(), tabla.uresSorokSzama(), tabla.uresOszlopokSzama());
+        Tabla.fajlbaIr();
     }
 }

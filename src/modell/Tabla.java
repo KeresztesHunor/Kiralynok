@@ -1,5 +1,13 @@
 package modell;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Tabla
 {
     private final char[][] t;
@@ -66,9 +74,38 @@ public class Tabla
         }
     }
     
-    public void fajlbaIr()
+    public static void fajlbaIr()
     {
-        
+        List<String> sorok = new ArrayList<>();
+        for (int i = 0; i < 64; i++)
+        {
+            Tabla tabla = new Tabla('*');
+            tabla.elhelyez(i + 1);
+            char[][] t = tabla.getT();
+            String sor = "";
+            for (int ii = 0; ii < t.length; ii++)
+            {
+                for (int iii = 0; iii < t[ii].length; iii++)
+                {
+                    sor += t[ii][iii];
+                }
+                sor += "\n";
+            }
+            sorok.add(sor);
+        }
+        Path path = Path.of("tablak64.txt");
+        try
+        {
+            if (Files.exists(path))
+            {
+                Files.delete(path);
+            }
+            Files.write(path, sorok);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(Tabla.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public boolean uresOszlop(int oszlopIndex)
